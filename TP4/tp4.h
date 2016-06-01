@@ -15,5 +15,6 @@ typedef struct node{
 
 Dir* create_dir(char* name, int status, Node* sub);
 Node* create_node(Dir* dir, Node* lc, Node* rc);
+Dir* search_dir(char* name, Node* sub);
 
 #endif // TP4_H_INCLUDED
