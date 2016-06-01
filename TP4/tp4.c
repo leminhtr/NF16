@@ -3,13 +3,14 @@
 #include <string.h>
 #include "tp4.h"
 
-Dir* create_dir(char* name, int status, Node* sub){
+Dir* create_dir(char* name, int status, Node* sub, Dir* father){
     Dir* newDir=malloc(sizeof(Dir));
     newDir->name=malloc(sizeof(char)*strlen(name));
 
     strcpy(newDir->name,name);
     newDir->status=status;
     newDir->sub=sub;
+    newDir->father=father;
     return newDir;
 }
 

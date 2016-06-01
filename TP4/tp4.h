@@ -5,6 +5,7 @@ typedef struct dir{
     char* name;
     int status;
     struct node* sub;
+    struct dir* father;
 }Dir;
 
 typedef struct node{
@@ -13,7 +14,7 @@ typedef struct node{
     struct node* rc;
 }Node;
 
-Dir* create_dir(char* name, int status, Node* sub);
+Dir* create_dir(char* name, int status, Node* sub, Dir* father);
 Node* create_node(Dir* dir, Node* lc, Node* rc);
 Dir* search_dir(char* name, Node* sub);
 void print_tree(Node* sub);
