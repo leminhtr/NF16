@@ -7,6 +7,7 @@ typedef struct dir{
     char* name;
     int status;
     struct node* sub;
+    struct dir* father;
 }Dir;
 
 typedef struct node{
@@ -15,9 +16,14 @@ typedef struct node{
     struct node* rc;
 }Node;
 
-Dir* create_dir(char* name, int status, Node* sub);
+Dir* create_dir(char* name, int status, Node* sub, Dir* father);
 Node* create_node(Dir* dir, Node* lc, Node* rc);
+<<<<<<< HEAD
 int add_dir_to_sub(Dir *dir, Node **sub);
 
+=======
+Dir* search_dir(char* name, Node* sub);
+void print_tree(Node* sub);
+>>>>>>> 36e35247a1ac2607afe33d7ac2d5fcc6e78a63ad
 
 #endif // TP4_H_INCLUDED

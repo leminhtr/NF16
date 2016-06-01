@@ -3,13 +3,17 @@
 #include <string.h>
 #include "tp4.h"
 
-Dir* create_dir(char* name, int status, Node* sub){
+Dir* create_dir(char* name, int status, Node* sub, Dir* father){
     Dir* newDir=malloc(sizeof(Dir));
     newDir->name=malloc(sizeof(char)*strlen(name));
 
     strcpy(newDir->name,name);
     newDir->status=status;
     newDir->sub=sub;
+<<<<<<< HEAD
+=======
+    newDir->father=father;
+>>>>>>> 36e35247a1ac2607afe33d7ac2d5fcc6e78a63ad
     return newDir;
 }
 
@@ -22,6 +26,7 @@ Node* create_node(Dir* dir, Node* lc, Node* rc){
     return newNode;
 }
 
+<<<<<<< HEAD
 int add_dir_to_sub(Dir *dir, Node **sub){
 
     int comp, comp_left, comp_right;
@@ -67,4 +72,34 @@ int add_dir_to_sub(Dir *dir, Node **sub){
 }
 
 
+=======
+Dir* search_dir(char* name, Node* sub){
+    if(sub==NULL){
+        return NULL;
+    }
+    if(strcmp(sub->dir->name,name)==0){
+        return sub->dir;
+    }
+    if(sub->rc!=NULL){
+        if(strcmp(sub->dir->name,name)==-1){
+            return search_dir(name,sub->rc);
+        }
+    }
+    if(sub->lc!=NULL){
+        if(strcmp(sub->dir->name,name)==1){
+            return search_dir(name,sub->lc);
+        }
+    }
+    return NULL;
+}
 
+>>>>>>> 36e35247a1ac2607afe33d7ac2d5fcc6e78a63ad
+
+void print_tree(Node* sub){
+    if(sub->lc!=NULL)
+        print_tree(sub->lc);
+    if(sub->dir->status==1)
+        printf("%s\n",sub->dir->name);
+    if(sub->rc!=NULL)
+        print_tree(sub->rc);
+}
