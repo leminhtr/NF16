@@ -1,6 +1,8 @@
 #ifndef TP4_H_INCLUDED
 #define TP4_H_INCLUDED
 
+#define DMAX 50
+
 typedef struct dir{
     char* name;
     int status;
@@ -15,5 +17,7 @@ typedef struct node{
 
 Dir* create_dir(char* name, int status, Node* sub);
 Node* create_node(Dir* dir, Node* lc, Node* rc);
+int add_dir_to_sub(Dir *dir, Node **sub);
+
 
 #endif // TP4_H_INCLUDED
