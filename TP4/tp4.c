@@ -41,3 +41,13 @@ Dir* search_dir(char* name, Node* sub){
     }
     return NULL;
 }
+
+
+void print_tree(Node* sub){
+    if(sub->lc!=NULL)
+        print_tree(sub->lc);
+    if(sub->dir->status==1)
+        printf("%s\n",sub->dir->name);
+    if(sub->rc!=NULL)
+        print_tree(sub->rc);
+}
