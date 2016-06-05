@@ -52,64 +52,74 @@ void print_tree(Node* sub){
         print_tree(sub->rc);
 }
 
-int add_dir_to_sub(Dir *dir, Node **sub){
-    if(dir==NULL)   //argument NULL
-
-        return -1;
-
-    if((*sub)->dir==NULL)   //aucun sous-dir
+int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
+    if(dir==NULL || father==NULL)   //argument NULL
     {
-        //printf("test");
+        printf("Erreur. Le dossier a ajoute ou le dossier pere n'existe pas.\n");
+        return -1;
+    }
+
+    dir->father=father; //Lien avec le dossier père.
+
+    if(sub->dir==NULL)   //aucun sous-dir
+    {
         //Node *new_sub=create_node(dir,NULL, NULL);
-        (*sub)->dir=dir;
+        sub->dir=dir;
+        printf("%s a ete ajoute au dossier %s.\n", dir->name, dir->father->name);
         return 0;
     }
 
     int comp, comp_left, comp_right;
-    comp=strcmp((*sub)->dir->name, dir->name);
-    comp_left=strcmp((*sub)->lc->dir->name, dir->name);
-    comp_right=strcmp((*sub)->rc->dir->name, dir->name);
+    comp=strcmp(sub->dir->name, dir->name);
 
     if(comp>0)  //sub>dir
     {
-        if((*sub)->lc==NULL) //fils gauche NULL
+        if(sub->lc==NULL) //fils gauche dispo
         {
-            Node *lc=create_node(dir,NULL, NULL);	//création du fils gauche puis ajout
-            (*sub)->lc=lc;
+            Node *lc=create_node(dir,NULL, NULL);
+            sub->lc=lc;
+            printf("%s a ete ajoute au dossier %s.\n", dir->name, dir->father->name);
             return 0;
         }
         else    //fils gauche non libre => ajout fils gauche (récursif)
         {
-            Node **ptr_node_lc=&((*sub)->lc);	//Besoin argument type Node **
-            return add_dir_to_sub(dir, ptr_node_lc);
+            return add_dir_to_sub(dir, sub->lc,sub->lc->dir);
         }
     }
 
     if(comp<0)  //sub<dir
     {
-        if((*sub)->rc==NULL) //fils droit NULL
+        if(sub->rc==NULL) //fils droit dispo
         {
-            Node *rc=create_node(dir,NULL,NULL);	//création du fils droit puis ajout
-            (*sub)->rc=rc;
+            Node *rc=create_node(dir,NULL,NULL);
+            sub->rc=rc;
+            printf("%s a ete ajoute au dossier %s.\n", dir->name, dir->father->name);
             return 0;
         }
         else    //fils droit non libre => ajout fils droit (récursif)
         {
-            Node **ptr_node_rc=&((*sub)->rc); 	//Besoin argument type Node **
-            return add_dir_to_sub(dir, ptr_node_rc);
+            return add_dir_to_sub(dir, sub->rc, sub->rc->dir);
         }
 
     }
 
-    if(comp==0 || comp_left==0 || comp_right==0)    //dir existe déjà
+    //comp_left=strcmp(sub->lc->dir->name, dir->name);
+    //comp_right=strcmp(sub->rc->dir->name, dir->name);
+    if(comp==0)    //dir existe déjà
+    {
+        printf("Ce dossier existe deja.\n");
         return -1;
+    }
+
 
     return 0;
 }
 
-void print_path(Dir *dir)
+int print_path(Dir *dir)
 {
-    int i=0; 
+    if(dir==NULL)
+        return -1;
+    int i=0;
     char *tab_absolute_dir_name[DMAX];
     Dir *temp_father=malloc(sizeof(Dir));	//temp directory
     temp_father=dir;
@@ -120,12 +130,12 @@ void print_path(Dir *dir)
         temp_father=temp_father->father;
         i++;
     }
-    
+
     i--;    //Annule dernier i++ en trop du while
     while(i!=0)     //affichage nom dossier de racine à current (donc ordre décroissant du tableau)
     {
         printf("%s/", tab_absolute_dir_name[i]);
         i--;
     }
-
+    return 0;
 }
