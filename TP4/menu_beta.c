@@ -38,7 +38,7 @@ int main()
         Node *racine_node=create_node(dirRacine, NULL,NULL);
         Dir *current_dir=malloc(sizeof(Dir));
         Node *current_node=malloc(sizeof(Node));
-
+        Dir *new_dir;
         current_node=racine_node;
         current_dir=racine_node->dir;
 
@@ -64,7 +64,8 @@ int main()
 
                     printf("Nom du repertoire courant : %s\n",current_dir->name);
                     print_path(current_dir);
-                    //print_tree(current_node);
+                    printf("sous-repertoires :\n");
+                    print_tree(current_node->dir->sub);
                     printf("\n");
 
                     break;
@@ -88,7 +89,7 @@ int main()
                     getchar();    //caractère d'echappement '\n'
 
                     //Création du nouveau dossier
-                    Dir *new_dir=create_dir(sous_dir_nom,sous_dir_status,NULL,current_dir);
+                    new_dir=create_dir(sous_dir_nom,sous_dir_status,NULL,current_dir);
 
                     //Ajout
                     test_add_dir=add_dir_to_sub(new_dir,dir_sub,current_dir);
