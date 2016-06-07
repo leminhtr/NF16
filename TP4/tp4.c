@@ -54,11 +54,13 @@ void print_tree(Node* sub){
 
 Dir *to_father_dir(Dir* dir){
     if(dir!=NULL){
-        if(dir->father==NULL)
-            printf("Ce repertoire n'a pas de repertoire parent !");
+        if(dir->father==NULL){
+            printf("Ce repertoire n'a pas de repertoire parent ! Nous restons dans ce repertoire\n");
+            return dir;
+        }
         return dir->father;
     }
-    printf("Ce repertoire n'existe pas");
+    printf("Ce repertoire n'existe pas\n");
     return NULL;
 }
 
