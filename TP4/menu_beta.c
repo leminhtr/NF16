@@ -62,7 +62,8 @@ int main()
 
                     printf("Nom du repertoire courant : %s\n",current_dir->name);
                     print_path(current_dir);
-                    //print_tree(current_node);
+                    printf("sous-repertoires :\n");
+                    print_tree(current_node->dir->sub);
                     printf("\n");
 
                     break;

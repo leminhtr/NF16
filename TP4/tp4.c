@@ -44,12 +44,15 @@ Dir* search_dir(char* name, Node* sub){
 }
 
 void print_tree(Node* sub){
-    if(sub->lc!=NULL)
-        print_tree(sub->lc);
-    if(sub->dir->status==1)
-        printf("%s\n",sub->dir->name);
-    if(sub->rc!=NULL)
-        print_tree(sub->rc);
+    if(sub!=NULL){
+        if(sub->lc!=NULL)
+            print_tree(sub->lc);
+        if(sub->dir->status==1)
+            printf("%s\n",sub->dir->name);
+        if(sub->rc!=NULL)
+            print_tree(sub->rc);
+    }
+    printf("[end]\n");
 }
 
 Dir *to_father_dir(Dir* dir){
