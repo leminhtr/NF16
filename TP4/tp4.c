@@ -144,10 +144,12 @@ int print_path(Dir *dir)
     }
 
     i--;    //Annule dernier i++ en trop du while
-    while(i!=0)     //affichage nom dossier de racine à current (donc ordre décroissant du tableau)
+    printf("Arborescence : ");
+    while(i>=0)     //affichage nom dossier de racine à current (donc ordre décroissant du tableau)
     {
         printf("%s/", tab_absolute_dir_name[i]);
         i--;
     }
+    printf("\n");
     return 0;
 }

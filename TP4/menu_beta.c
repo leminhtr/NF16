@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "tp3.h"
+#include "tp4.h"
 #include <string.h>
 
 int main()
 {
-	char *racine_nom;
+	char racine_nom[DMAX];
     int racine_status;
-    
+
     printf("Saisir le nom du repertoire racine :\n");   //recuperation nom racine
     fgets(racine_nom,50,stdin);
+
     char *pos_n=NULL;
     pos_n = strchr(racine_nom, '\n');       //On cherche l'adresse du caractère '\n' stocke par fgets
     if (pos_n != NULL) //
@@ -17,11 +18,11 @@ int main()
         *pos_n = '\0';                      //On remplace à cette adresse par '\0'.
     }
 
-    printf("Quel est le statut du dossier racine %s\n", nom_racine);    //recuperation statut racine
+    printf("Quel est le statut du dossier racine %s\n", racine_nom);    //recuperation statut racine
     scanf("%d", &racine_status);
     getchar();    //caractère d'echappement '\n'
 
-    Dir* racine=create_dir(nom_racine, racine_status,NULL, NULL);   //création racine
+    Dir* dirRacine=create_dir(racine_nom, racine_status,NULL, NULL);   //création racine
 
     if(racine_nom==NULL)            //racine NULL
     {
@@ -30,11 +31,14 @@ int main()
     else        //racine créée
     {
         int choix;
-        char *sous_dir_nom;
+        char sous_dir_nom[DMAX];
 
-        Node *racine_node=create_node(racine, NULL,NULL);
-        Node *current_dir=malloc(sizeof(Dir));
-        Node *current_node=malloc(sizeof(Dir))
+        Node *racine_node=create_node(dirRacine, NULL,NULL);
+        Dir *current_dir=malloc(sizeof(Dir));
+        Node *current_node=malloc(sizeof(Node));
+
+        current_node=racine_node;
+        current_dir=racine_node->dir;
 
         while(1)
         {
@@ -50,15 +54,15 @@ int main()
             getchar();
 
 
-        
+
             switch(choix)
             {
                 case 1 :
                     printf("Vous avez choisi d\'afficher le nom, et le contenu du repertoire courant ainsi que le chemin absolu.\n");
 
-                    printf("Nom du repertoire courant : %s\n"current_dir->name);
+                    printf("Nom du repertoire courant : %s\n",current_dir->name);
                     print_path(current_dir);
-                    print_tree(current_dir);
+                    //print_tree(current_node);
                     printf("\n");
 
                     break;
@@ -70,6 +74,11 @@ int main()
                 case 3 :
                     printf("Vous avez choisi d\'aller dans un sous-repertoire.\n");
 
+                    if(current_dir->sub == NULL)
+                        printf("Ce repertoire est vide\n\n");
+
+                    else{
+                    print_tree(current_node);
                     printf("Dans quel sous-repertoire voulez-vous aller ?\n");
                     fgets(sous_dir_nom, 50, stdin);
 
@@ -90,18 +99,17 @@ int main()
                     {
                         print_path(current_dir);
                     }
-
+                    }
                     break;
                 case 4 :
                     printf("Vous avez choisi de retourner a la racine.\n");
 
-                    current_dir=racine;
+                    current_dir=dirRacine;
                     current_node=racine_node;
 
                     break;
                 case 5 :
                     printf("Vous avez choisi d\'aller dans le repertoire pere.\n");
-
 
                     break;
 
@@ -113,6 +121,7 @@ int main()
                         break;
             }
         }
-    }    
+    }
     return 0;
 }
+
