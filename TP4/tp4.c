@@ -52,6 +52,16 @@ void print_tree(Node* sub){
         print_tree(sub->rc);
 }
 
+Dir *to_father_dir(Dir* dir){
+    if(dir!=NULL){
+        if(dir->father==NULL)
+            printf("Ce repertoire n'a pas de repertoire parent !");
+        return dir->father;
+    }
+    printf("Ce repertoire n'existe pas");
+    return NULL;
+}
+
 int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
     if(dir==NULL || father==NULL)   //argument NULL
     {
@@ -69,7 +79,7 @@ int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
         return 0;
     }
 
-    int comp, comp_left, comp_right;
+    int comp;
     comp=strcmp(sub->dir->name, dir->name);
 
     if(comp>0)  //sub>dir
