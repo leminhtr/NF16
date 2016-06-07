@@ -18,7 +18,7 @@ int main()
         *pos_n = '\0';                      //On remplace à cette adresse par '\0'.
     }
 
-    printf("Quel est le statut du dossier racine %s\n", racine_nom);    //recuperation statut racine
+    printf("Quel est le statut du dossier racine ?\n");    //recuperation statut racine
     scanf("%d", &racine_status);
     getchar();    //caractère d'echappement '\n'
 
@@ -32,6 +32,8 @@ int main()
     {
         int choix;
         char sous_dir_nom[DMAX];
+        int sous_dir_status;
+        int test_add_dir;
 
         Node *racine_node=create_node(dirRacine, NULL,NULL);
         Dir *current_dir=malloc(sizeof(Dir));
@@ -62,14 +64,44 @@ int main()
 
                     printf("Nom du repertoire courant : %s\n",current_dir->name);
                     print_path(current_dir);
-                    printf("sous-repertoires :\n");
-                    print_tree(current_node->dir->sub);
+                    //print_tree(current_node);
                     printf("\n");
 
                     break;
                 case 2 :
                     printf("Vous avez choisi de creer un sous-repertoire dans le repertoire courant.\n");
+                    Node *dir_sub=malloc(sizeof(Node));
+                    current_dir->sub=dir_sub;
 
+                    printf("Saisir le nom du repertoire a creer :\n");   //recuperation nom new_dir
+                    fgets(sous_dir_nom,50,stdin);
+
+                    char *pos_n=NULL;
+                    pos_n = strchr(sous_dir_nom, '\n');       //On cherche l'adresse du caractère '\n' stocke par fgets
+                    if (pos_n != NULL) //
+                    {
+                        *pos_n = '\0';                      //On remplace à cette adresse par '\0'.
+                    }
+
+                    printf("Quel est le statut du dossier a creer\n");    //recuperation statut new_dir
+                    scanf("%d", &sous_dir_status);
+                    getchar();    //caractère d'echappement '\n'
+
+                    //Création du nouveau dossier
+                    Dir *new_dir=create_dir(sous_dir_nom,sous_dir_status,NULL,current_dir);
+
+                    //Ajout
+                    test_add_dir=add_dir_to_sub(new_dir,dir_sub,current_dir);
+
+                    if(test_add_dir==0)
+                    {
+                        printf("Vous avez creer le dossier %s dans le dossier %s", new_dir->name, current_dir->name);
+                    }
+                    else
+                    {
+                        printf("Echec creation dossier");
+
+                    }
 
                     break;
                 case 3 :
