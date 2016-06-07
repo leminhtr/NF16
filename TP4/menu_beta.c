@@ -64,7 +64,8 @@ int main()
 
                     printf("Nom du repertoire courant : %s\n",current_dir->name);
                     print_path(current_dir);
-                    //print_tree(current_node);
+                    printf("Sous-repertoires :\n");
+                    print_tree(current_dir->sub);
                     printf("\n");
 
                     break;
@@ -143,7 +144,7 @@ int main()
                     break;
                 case 5 :
                     printf("Vous avez choisi d\'aller dans le repertoire pere.\n");
-
+                    current_dir=to_father_dir(current_dir);
                     break;
 
                 case 0 :
