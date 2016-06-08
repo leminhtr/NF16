@@ -20,6 +20,7 @@ Node* create_node(Dir* dir, Node* lc, Node* rc){
     newNode->dir=dir;
     newNode->lc=lc;
     newNode->rc=rc;
+
     return newNode;
 }
 
@@ -52,7 +53,6 @@ void print_tree(Node* sub){
         if(sub->rc!=NULL)
             print_tree(sub->rc);
     }
-    printf("[end]\n");
 }
 
 Dir *to_father_dir(Dir* dir){
@@ -73,7 +73,6 @@ int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
         printf("Erreur. Le dossier a ajoute ou le dossier pere n'existe pas.\n");
         return -1;
     }
-
     dir->father=father; //Lien avec le dossier père.
 
     if(sub->dir==NULL)   //aucun sous-dir
@@ -83,7 +82,6 @@ int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
         printf("%s a ete ajoute au dossier %s.\n", dir->name, father->name);
         return 0;
     }
-
     int comp;
     comp=strcmp(sub->dir->name, dir->name);
 
@@ -93,7 +91,6 @@ int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
         {
             Node *lc=create_node(dir,NULL, NULL);
             sub->lc=lc;
-            printf("%s a ete ajoute au dossier %s.\n", dir->name, father->name);
             return 0;
         }
         else    //fils gauche non libre => ajout fils gauche (récursif)
@@ -108,7 +105,6 @@ int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
         {
             Node *rc=create_node(dir,NULL,NULL);
             sub->rc=rc;
-            printf("%s a ete ajoute au dossier %s.\n", dir->name, father->name);
             return 0;
         }
         else    //fils droit non libre => ajout fils droit (r�cursif)
@@ -118,8 +114,6 @@ int add_dir_to_sub(Dir *dir, Node *sub, Dir *father){
 
     }
 
-    //comp_left=strcmp(sub->lc->dir->name, dir->name);
-    //comp_right=strcmp(sub->rc->dir->name, dir->name);
     if(comp==0)    //dir existe déjà
     {
         printf("Ce dossier existe deja.\n");
@@ -141,7 +135,10 @@ int print_path(Dir *dir)
 
     while(temp_father!=NULL)    //stockage nom dossier de current  racine
     {
-        tab_absolute_dir_name[i]=temp_father->name;
+        if(temp_father->status==1)
+            tab_absolute_dir_name[i]=temp_father->name;
+        else
+            tab_absolute_dir_name[i]="XXX";
         temp_father=temp_father->father;
         i++;
     }

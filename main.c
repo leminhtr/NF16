@@ -12,29 +12,28 @@ int main()
     fgets(racine_nom,50,stdin);
 
     char *pos_n=NULL;
-    pos_n = strchr(racine_nom, '\n');       //On cherche l'adresse du caractÃ¨re '\n' stocke par fgets
+    pos_n = strchr(racine_nom, '\n');       //On cherche l'adresse du caractère '\n' stocke par fgets
     if (pos_n != NULL) //
     {
-        *pos_n = '\0';                      //On remplace Ã  cette adresse par '\0'.
+        *pos_n = '\0';                      //On remplace à cette adresse par '\0'.
     }
 
     printf("\nQuel est le statut du dossier racine ?\n");    //recuperation statut racine
     scanf("%d", &racine_status);
-    getchar();    //caractÃ¨re d'echappement '\n'
+    getchar();    //caractère d'echappement '\n'
 
-    Dir* dirRacine=create_dir(racine_nom, racine_status,NULL, NULL);   //crÃ©ation racine
+    Dir* dirRacine=create_dir(racine_nom, racine_status,NULL, NULL);   //création racine
 
     if(racine_nom==NULL)            //racine NULL
     {
         printf("Erreur creation dossier racine.\n");
     }
-    else        //racine crÃ©Ã©e
+    else        //racine créée
     {
         int choix;
         char sous_dir_nom[DMAX];
         int sous_dir_status;
         int test_add_dir;
-int test;
         Dir *current_dir=malloc(sizeof(Dir));
         Dir *new_dir;
         current_dir=dirRacine;
@@ -81,17 +80,17 @@ int test;
                     printf("\nSaisir le nom du repertoire a creer :\n");   //recuperation nom new_dir
                     fgets(sous_dir_nom,50,stdin);
                     char *pos_n=NULL;
-                    pos_n = strchr(sous_dir_nom, '\n');       //On cherche l'adresse du caractÃ¨re '\n' stocke par fgets
+                    pos_n = strchr(sous_dir_nom, '\n');       //On cherche l'adresse du caractère '\n' stocke par fgets
                     if (pos_n != NULL) //
                     {
-                        *pos_n = '\0';                      //On remplace Ã  cette adresse par '\0'.
+                        *pos_n = '\0';                      //On remplace à cette adresse par '\0'.
                     }
 
                     printf("\nQuel est le statut du dossier a creer\n");    //recuperation statut new_dir
                     scanf("%d", &sous_dir_status);
-                    getchar();    //caractÃ¨re d'echappement '\n'
+                    getchar();    //caractère d'echappement '\n'
 
-                    //CrÃ©ation du nouveau dossier
+                    //Création du nouveau dossier
                     new_dir=create_dir(sous_dir_nom,sous_dir_status,NULL,current_dir);
                     //Ajout
                     test_add_dir=add_dir_to_sub(new_dir,current_dir->sub,current_dir);
@@ -119,10 +118,10 @@ int test;
                     fgets(sous_dir_nom, 50, stdin);
 
                     char *pos_n=NULL;
-                    pos_n = strchr(sous_dir_nom, '\n');       //On cherche l'adresse du caractÃ¨re '\n' stocke par fgets
+                    pos_n = strchr(sous_dir_nom, '\n');       //On cherche l'adresse du caractère '\n' stocke par fgets
                     if (pos_n != NULL) //
                     {
-                        *pos_n = '\0';                      //On remplace Ã  cette adresse par '\0'.
+                        *pos_n = '\0';                      //On remplace à cette adresse par '\0'.
                     }
 
                     Dir *temp=malloc(sizeof(Dir));
@@ -167,4 +166,3 @@ int test;
     }
     return 0;
 }
-
