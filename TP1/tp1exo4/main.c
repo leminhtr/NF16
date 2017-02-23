@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void question4_1(int *a, int *b)
+{
+   // int temp;
+    //temp=*a;
+    *a=*a+*b;
+    *b=*a-*b;
+    *a=*a-*b;
+}
+
+void question4_3()
+{
+    int i, *j;
+    i=7;
+    j=&i;
+    printf("%d %d\n", i,*j);
+}
+
+void question4_4()
+{
+    int i, *j;
+    i=7;
+    j=&i;
+    printf("%d %d", i,*j);
+    ++*j;
+    printf(" %d", i);
+    i*=5;
+    printf(" %d", *j);
+    j++;
+    printf(" %d\n\n",*j);
+}
+
+void question4_5_6()
+{
+    int **tab, i, j, val=12;
+    for(i=0;i<3;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            **(tab+j)=val+j;
+            printf("tab[%d][%d]=%d ", i,j,tab[i][j]);
+        }
+    }
+
+}
+
+void question4_7()
+{
+    int Nb=4, *tab2, *temp, i;
+    for(i=0;i<4;i++)
+    {
+        scanf("%d", (tab2+i));
+        printf("%d\n", *(tab2+i));
+    }
+    for(i=0;i<4;i++)
+    {
+        (tab2)+i-1=(tab2+i);
+        printf("%d", *(tab2+i);
+    }
+
+}
+
+
+int main()
+{
+    int x,y;
+    x=4,y=5;
+    question4_1(&x,&y);
+    printf("%d %d ", x,y);
+    question4_3();
+    question4_4();
+    //question4_5_6();
+    question4_7();
+    return 0;
+}

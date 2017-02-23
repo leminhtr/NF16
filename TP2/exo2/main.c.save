@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define ITEMSMAX 20
+#define CARACMAX 60
+
+
+int main()
+{
+    struct Un_Tableau_Entier {
+            int tab[NMAX];      //tableau entier
+            int ncase=0;        //nombre case tableau
+    };
+    typedef struct Un_Tableau_Entier tab_int;
+    
+    
+    struct menu {
+            char tab[ITEMSMAX][CARACMAX]; // 20 items de 60 caractères
+            int n;                        //nombre items
+    };
+    typedef struct menu menu;
+    
+    
+    struct tonneau{
+            float d;
+            float D;
+            float L;
+            
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    printf("Hello world!\n");
+    return 0;
+}
